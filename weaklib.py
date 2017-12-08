@@ -155,18 +155,18 @@ def atomic_mass(A,Z):
     try:
         A = int(A)
     except:
-        print '\"{}\" is invalid input for A in mass lookup.'.format(A)
+        print ('\"{}\" is invalid input for A in mass lookup.'.format(A))
         return None
         
     try:
         Z = int(Z)
     except:
-        print '\"{}\" is invalid input for Z in mass lookup.'.format(Z)
+        print ('\"{}\" is invalid input for Z in mass lookup.'.format(Z))
         return None
         
     M = atomic_masses.get((A,Z))
     if M == None:
-        print 'No mass found for A,Z={},{}.'.format(A,Z)
+        print ('No mass found for A,Z={},{}.'.format(A,Z))
     
     return M
     
@@ -255,7 +255,7 @@ def BGT_FFN(logft,Ji=None,Jf=None,BF=0.):
     else:
         BGTr = None
     
-    print '\nft: {}\nJi: {}\nJf: {}\nBF: {}'.format(logft,Ji,Jf,BF)
+    print ('\nft: {}\nJi: {}\nJf: {}\nBF: {}'.format(logft,Ji,Jf,BF))
     
     return (BGTf,BGTr)
 ##### end BGT #####
@@ -265,15 +265,15 @@ def BGT_FFN(logft,Ji=None,Jf=None,BF=0.):
 # Prompts user to select one item from a list.
 # Returns selection or None if no item is selected.
 def choose(thing,options,mustchoose=True,nochoice='to make no selection'):
-    print ''
+    print ('')
     for o in range(len(options)):
-        print str(o+1)+': '+str(options[o])
+        print (str(o+1)+': '+str(options[o]))
     if mustchoose:
         text = 'Choose '+thing+' by number: '
     else:
         text = 'Choose '+thing+' by number (<enter> '+nochoice+'): '
     while True:
-        choice = raw_input(text)
+        choice = input(text) #raw_input(text)
         try:
             choice = options[int(choice) - 1]
             break
@@ -282,7 +282,7 @@ def choose(thing,options,mustchoose=True,nochoice='to make no selection'):
                 choice = None
                 break
             else:
-                print 'Invalid choice.'
+                print ('Invalid choice.')
     return choice
 ##### end choose #####
 
@@ -410,7 +410,7 @@ def ft(B,channel='gt'):
         
     logft = numpy.log10(ft)
     
-    print '\nlogft: {:.4}'.format(logft)
+    print ('\nlogft: {:.4}'.format(logft))
 
 ##### end ft #####
 
@@ -428,7 +428,7 @@ def ft_FFN(B,channel='gt'):
         
     logft = numpy.log10(ft)
     
-    print '\nlogft: {:.4}'.format(logft)
+    print ('\nlogft: {:.4}'.format(logft))
 
 ##### end ft #####
 
@@ -476,7 +476,7 @@ def get_deltaM(lpt_name,Tz1,Tz2):
     try:
         deltaM = ground1 - ground2
     except:
-        print 'Error finding mass difference.'
+        print ('Error finding mass difference.')
         deltaM = None
         
     return deltaM
@@ -498,7 +498,7 @@ def get_energy(Tz,J,T,n,lpt_name=None,states=None):
             index = [s[1:] for s in states].index([J,T,n])
             E = states[index][0]
         except:
-            print 'State not found when attempting to get energy.'
+            print ('State not found when attempting to get energy.')
             E = None
     elif lpt_name:
         ground = None    # ground state energy initialized to None
@@ -1003,8 +1003,8 @@ def logft(A,Z,Q,halflife,lepton,F=None):
     # q (float) is transition energy (units of electron mass)
     # lepton is charged lepton in interaction ('electron' or 'positron')
     def kernel(w,q,lepton,F):
-        print '\nw:'
-        print w
+        print ('\nw:')
+        print (w)
         # charged lepton momentum (mc)
         p = (w**2-1.)**(0.5)
         
@@ -1044,10 +1044,10 @@ def logft(A,Z,Q,halflife,lepton,F=None):
     leg = numpy.polynomial.legendre.leggauss(100)
     points = leg[0]
     weights = leg[1]
-    print '\npoints:'
-    print points
-    print '\nweights'
-    print weights
+    print ('\npoints:')
+    print (points)
+    print ('\nweights')
+    print (weights)
     
     # conversions to make limits of integration -1 to 1
     X = (-q - 1.)/2.
@@ -1255,7 +1255,7 @@ def sci_not(input,precision=2):
     try:
         input = float(input)
     except:
-        print 'Cannot cast input to float in weaklib.sci_not().'
+        print ('Cannot cast input to float in weaklib.sci_not().')
         return None
     precision = str(int(precision))
     
@@ -1425,10 +1425,10 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
                 if channel == 'gt+' and a == A and z == Z+1:
                     lptp = lptpath + f
         if not lpt:
-            print 'Parent nucleus lpt file not found.'
+            print ('Parent nucleus lpt file not found.')
             exit()
         if (not lpt) or (channel == 'gt-' and not lptm) or (channel == 'gt+' and not lptp):
-            print '{} daughter nucleus lpt file not found.'.format(channel)
+            print ('{} daughter nucleus lpt file not found.'.format(channel))
             return None
         
         for dao in os.listdir(overlappath):
@@ -1457,7 +1457,7 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
                 data = f.readlines()
         except IOError:
             ## If parent strength file not found, check for the daughter.
-            print '\nOverlap file {} not found.\nChecking reverse reaction.'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name))
+            print ('\nOverlap file {} not found.\nChecking reverse reaction.'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)))
             if channel == 'gt-':
                 nuc_name = atomic_names.get(Z-1)
                 chan_name = 'Bminus'
@@ -1469,7 +1469,7 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
                 with open(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)) as f:
                     data = f.readlines()
             except IOError:
-                print 'Overlap file {} also not found.\n'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name))
+                print ('Overlap file {} also not found.\n'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)))
                 return None
             
         ## Get number of parent states.
@@ -1479,7 +1479,8 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
             info = data[c+7].split()
             n = int(info[0])
             if n != c+1:
-                print 'Error reading parent states.\nExpected state number {}, got state number {}.'.format(p+1,n)
+                #print ('Error reading parent states.\nExpected state number {}, got state number {}.'.format(p+1,n))
+                print ('Error reading parent states.\nExpected state number {}, got state number {}.'.format(c+1,n))
                 exit()
             J = float(info[1])
             T = float(info[2])
@@ -1496,7 +1497,8 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
             info = data[c + 7 + count_p + 4].split()
             n = int(info[0])
             if n != c+1:
-                print 'Error reading daughter states.\nExpected state number {}, got state number {}.'.format(p+1,n)
+                #print ('Error reading daughter states.\nExpected state number {}, got state number {}.'.format(p+1,n))
+                print ('Error reading daughter states.\nExpected state number {}, got state number {}.'.format(c+1,n))
                 exit()
             J = float(info[1])
             T = float(info[2])
@@ -1527,7 +1529,7 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
                 hea_bins[e][1] = hea_bins[e][1] + (2.*J+1.)
                 break
         else:
-            print 'Error in weaklib.thermal_strength() computing hea state spin degeneracy.'
+            print ('Error in weaklib.thermal_strength() computing hea state spin degeneracy.')
     
     ## Get daughter - parent nuclear mass difference and compute dEmin.
     if channel == 'gt+':
@@ -1569,7 +1571,7 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
         for s in states:
             counter = counter + 1
             if spam:
-                print 'Computing thermal strength in {} of {} states.'.format(counter,len(states))
+                print ('Computing thermal strength in {} of {} states.'.format(counter,len(states)))
             E = s[0]
             J = s[1]
             T = s[2]
@@ -1585,8 +1587,8 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
                         g = ((2.*J+1.)/hea_bins[e][1])*(hea_G[e]/G)
                         break
                 else:
-                    print 'Error in assigning statistical weight to high energy state {}.'.format(dao)
-                    raw_input('pause')
+                    print ('Error in assigning statistical weight to high energy state {}.'.format(dao))
+                    input('pause') #raw_input('pause')
             
             ## Load the overlap data and add to thermal_strength.
             f = open(dao)
@@ -1654,8 +1656,8 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
                         g = ((2.*Jp+1.)/hea_bins[e][1])*(hea_G[e]/G)
                         break
                 else:
-                    print 'Error in assigning statistical weight to high energy state E={} MeV.'.format(Ep)
-                    raw_input('pause')
+                    print ('Error in assigning statistical weight to high energy state E={} MeV.'.format(Ep))
+                    input('pause') # raw_input('pause')
             
             ## Get daughter state energy.
             if forward:
@@ -1695,6 +1697,11 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
 # prompt is the prompt given to the user.
 # notes is a parenthetical, e.g., units
 # default is an optional default value.
+
+# STEPHANIE NOTES
+# December 6th
+# Changed 'input' to 'temp_input' because the code was returning an error
+# due to the change from raw_input() to input() in Python 3
 def user_float(prompt,notes=None,default=None):
     prompt = '\n'+prompt
     if notes:
@@ -1709,20 +1716,20 @@ def user_float(prompt,notes=None,default=None):
             other = ': '
     
     if default:
-        input = raw_input(prompt+other)
+        temp_input = input(prompt+other) # raw_input(prompt+other)
         try:
-            input = float(input)
+            temp_input = float(temp_input)
         except:
-            print 'Using default.'
-            input = float(default)
+            print ('Using default.')
+            temp_input = float(default)
     else:
         while True:
-            input = raw_input(prompt+other)
+            temp_input = input(prompt+temp_input) #raw_input(prompt+other)
             try:
-                input = float(input)
+                temp_input = float(temp_input)
                 break
             except:
-                print 'Invalid input.'
+                print ('Invalid input.')
     
-    return input
+    return temp_input
 ##### end user_float #####

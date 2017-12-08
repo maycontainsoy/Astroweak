@@ -10,15 +10,15 @@ lpt = ''
 if format == 'oxbash':
     ## Get path to lpt files.
     default = './'
-    lptpath = raw_input('Path to lpt file(s) (default {}): '.format(default))
+    lptpath = input('Path to lpt file(s) (default {}): '.format(default)) #raw_input('Path to lpt file(s) (default {}): '.format(default))
     if lptpath == '':
         lptpath = default
 
     ## Get parent .lpt.
-    print '\nParent nucleus .lpt file: '
+    print ('\nParent nucleus .lpt file: ')
     lpt = weaklib.get_lpt(path=lptpath)
     if not lpt:
-        print 'No .lpt file found.'
+        print ('No .lpt file found.')
         sys.exit()
 
 ## Get temperature-density grid.  Temperature will be in MeV, rhoYe in g/cm^3.
@@ -29,19 +29,19 @@ else:
     ## If to be input, get temperature.
     temp_unit = weaklib.choose('unit of temperature',['MeV','T9'])
     default = '0.01'
-    temp = raw_input('\nTemperatures ({}, temp1,temp2,..., default {}): '.format(temp_unit,default))
+    temp = input('\nTemperatures ({}, temp1,temp2,..., default {}): '.format(temp_unit,default)) #raw_input('\nTemperatures ({}, temp1,temp2,..., default {}): '.format(temp_unit,default))
     temp = numpy.fromstring(temp,sep=',')
     if len(temp) == 0:
-        print 'Using default.'
+        print ('Using default.')
         temp = numpy.fromstring(default,sep=',')
     if temp_unit == 'T9':
         temp = temp * 10**9 * weaklib.kB
     ## If to be input, get rhoYe.
     default = '1'
-    rhoYe = raw_input('\nDensity log(rho*Ye) (g/cm^3, log(rhoYe1),log(rhoYe2),... default {}): '.format(default))
+    rhoYe = input('\nDensity log(rho*Ye) (g/cm^3, log(rhoYe1),log(rhoYe2),... default {}): '.format(default)) #raw_input('\nDensity log(rho*Ye) (g/cm^3, log(rhoYe1),log(rhoYe2),... default {}): '.format(default))
     rhoYe = numpy.fromstring(rhoYe,sep=',')
     if len(rhoYe) == 0:
-        print 'Using default.'
+        print ('Using default.')
         rhoYe = numpy.fromstring(default,sep=',')
     rhoYe = 10.**rhoYe
 
@@ -51,12 +51,12 @@ if format == 'oxbash' and lpt.startswith('A,Z='):
     A,Z = numpy.fromstring(AZ,sep=',',dtype=int)
 else:
     while True:
-        AZ = raw_input('Nucleus A,Z: ')
+        AZ = input('Nucleus A,Z: ') #raw_input('Nucleus A,Z: ')
         try:
             A,Z = numpy.fromstring(AZ,sep=',',dtype=int)
             break
         except:
-            print 'Invalid input.'
+            print ('Invalid input.')
 Tz = (2.*Z - A)/2.
 
 ## Get path to overlap files.
@@ -64,16 +64,17 @@ while True:
     if format == 'oxbash':
         default = './overlaps/A,Z={}/'.format(AZ)
     elif format == 'bigstick':
-        default = os.path.expanduser('~/Documents/Johnson data/allmytransitions-master/Beta_Results_Final/gtr_expt_rev/')
-    overlappath = raw_input('\nPath to overlap files (default {}): '.format(default))
+        #default = os.path.expanduser('~/Documents/Johnson data/allmytransitions-master/Beta_Results_Final/gtr_expt_rev/')
+        default = os.path.expanduser('~/Desktop/allmytransitions/Beta_Results_Final/gtr_expt_rev/')
+    overlappath = input('\nPath to overlap files (default {}): '.format(default)) #raw_input('\nPath to overlap files (default {}): '.format(default))
     if os.path.exists(overlappath):
         break
     elif overlappath == '':
-        print 'Using default.'
+        print ('Using default.')
         overlappath = default
         break
     else:
-        print 'Path not found.'
+        print ('Path not found.')
 
 #####   THIS HAS NOT YET BEEN IMPLEMENTED.   #####
 ## Determine whether to provide rates for individual states.
@@ -88,16 +89,17 @@ individual = False
 ## Get initial state energies.
 if individual:
     default = '0,5'
-    Erange = raw_input('\nMin,max initial state energy (MeV, default {}): '.format(default))
+    Erange = input('\nMin,max initial state energy (MeV, default {}): '.format(default)) #raw_input('\nMin,max initial state energy (MeV, default {}): '.format(default))
     Erange = numpy.fromstring(Erange,sep=',')
     if len(Erange) != 2:
-        print 'Using default.'
+        print ('Using default.')
         Erange = numpy.fromstring(default,sep=',')
 else:
     default = '15,20'
-    cutoff = numpy.fromstring(raw_input('\nLower,upper cutoffs for modified Brink hypothesis (MeV, default {}): '.format(default)),sep=',')
+    #cutoff = numpy.fromstring(raw_input('\nLower,upper cutoffs for modified Brink hypothesis (MeV, default {}): '.format(default)),sep=',')
+    cutoff = numpy.fromstring(input('\nLower,upper cutoffs for modified Brink hypothesis (MeV, default {}): '.format(default)),sep=',')
     if len(cutoff) != 2:
-        print 'Using default.'
+        print ('Using default.')
         cutoff = numpy.fromstring(default,sep=',')
     hea_width = weaklib.user_float('Averaged high energy state bin width',notes='MeV',default=1.)
     
@@ -130,7 +132,7 @@ for channel in channels:
 
 ## Compute that rate.
 for rY in range(len(rhoYe)):
-    print 'Computing rates at density {} of {}.'.format(rY+1,len(rhoYe))
+    print ('Computing rates at density {} of {}.'.format(rY+1,len(rhoYe)))
     
     ## Compute electron chemical potential.
     mue = []
@@ -184,7 +186,8 @@ for rY in range(len(rhoYe)):
     if not individual:
         
         f_out_path = './results/A,Z={}/beta rates A,Z={}.txt'.format(AZ,AZ)
-        
+        #f_out_path = './results/AZ{}{}/betaRatesAZ{}{}.txt'.format(A,Z,A,Z)
+
         if not os.path.exists(f_out_path):
             f = open(f_out_path,'w+')
             f.write('rhoYe is density times electron fraction [g/cm^3], T is temperature [MeV], mu_e is electron chemical potential [MeV]\n')
