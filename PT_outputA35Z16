@@ -1,0 +1,11 @@
+
+1: bigstick
+2: oxbash
+Choose overlap file format by number: 
+1: FFN
+2: input temperatures and densities
+Choose temperature-density grid by number: Nucleus A,Z: 
+Path to overlap files (default /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_expt_rev/): 
+Lower,upper cutoffs for modified Brink hypothesis (MeV, default 15,20): 
+Averaged high energy state bin width (MeV, default 1.0): 
+Thermal strength transition energy bin width (MeV, default 0.01): 
