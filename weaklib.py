@@ -1453,11 +1453,13 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
         try:
             ## Need a flag for when the reverse reaction is the one we have computed strengths for.
             forward = True
-            with open(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)) as f:
+            with open(overlappath+'{}{}{}.gtr'.format(nuc_name,A,chan_name)) as f:
+            #with open(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)) as f:
                 data = f.readlines()
         except IOError:
             ## If parent strength file not found, check for the daughter.
-            print ('\nOverlap file {} not found.\nChecking reverse reaction.'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)))
+            #print ('\nOverlap file {} not found.\nChecking reverse reaction.'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)))
+            print ('\nOverlap file {} not found.\nChecking reverse reaction.'.format(overlappath+'{}{}{}.gtr'.format(nuc_name,A,chan_name)))
             if channel == 'gt-':
                 nuc_name = atomic_names.get(Z-1)
                 chan_name = 'Bminus'
@@ -1466,10 +1468,12 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
                 chan_name = 'Bplus'
             try:
                 forward = False
-                with open(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)) as f:
+                #with open(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)) as f:
+                with open(overlappath+'{}{}{}.gtr'.format(nuc_name,A,chan_name)) as f:    
                     data = f.readlines()
             except IOError:
-                print ('Overlap file {} also not found.\n'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)))
+                #print ('Overlap file {} also not found.\n'.format(overlappath+'{}{}{}_expt.gtr'.format(nuc_name,A,chan_name)))
+                print ('Overlap file {} also not found.\n'.format(overlappath+'{}{}{}.gtr'.format(nuc_name,A,chan_name)))
                 return None
             
         ## Get number of parent states.
