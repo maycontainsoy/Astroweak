@@ -1,6 +1,6 @@
 1 
 1 
-35,16 
+38,20 
 /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/
 15,20 
 1.0 

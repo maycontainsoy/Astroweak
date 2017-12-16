@@ -9,14 +9,14 @@ Path to overlap files (default /home/slauber/Desktop/allmytransitions/Beta_Resul
 Lower,upper cutoffs for modified Brink hypothesis (MeV, default 15,20): 
 Averaged high energy state bin width (MeV, default 1.0): 
 Thermal strength transition energy bin width (MeV, default 0.01): 
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/S35Bplus_expt.gtr not found.
+Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/Cl32Bplus_expt.gtr not found.
 Checking reverse reaction.
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/P35Bminus_expt.gtr also not found.
+Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/S32Bminus_expt.gtr also not found.
 
 
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/S35Bminus_expt.gtr not found.
+Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/Cl32Bminus_expt.gtr not found.
 Checking reverse reaction.
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/Cl35Bplus_expt.gtr also not found.
+Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/Ar32Bplus_expt.gtr also not found.
 
 Computing rates at density 1 of 11.
 Computing rates at density 2 of 11.
