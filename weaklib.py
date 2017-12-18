@@ -152,6 +152,7 @@ FFNgrid = [
 ## A is nuclear mass number.  Can be any data type that will cast to int.
 ## Z is proton number.  Can be any data type that will cast to int.
 def atomic_mass(A,Z):
+    print ('IN FUNCTION: atomic_mass for A=%i and Z=%i \n' % (int(A),int(Z)))
     try:
         A = int(A)
     except:
@@ -186,6 +187,7 @@ def atomic_mass(A,Z):
 # E_min and E_max (float) set the energy range of accepted states.
 # Tz (float) is z-projection of isospin.  May be neglected if lpt file contains no states with bad isospins
 def avg_weight(T,lpt_name,AZ,channel,E_min=0,E_max=float('inf'),nuc_dir='./',Tz=None):
+    print ('IN FUNCTION: avg_weight() for T={} AZ={} \n'.format(T,AZ))
     if not lpt_name.startswith(nuc_dir):
         lpt_name = nuc_dir + lpt_name
     
@@ -218,6 +220,7 @@ def avg_weight(T,lpt_name,AZ,channel,E_min=0,E_max=float('inf'),nuc_dir='./',Tz=
 # Jf is the final state spin.
 # BF (float or int) is the Fermi transition strength.
 def BGT(logft,Ji=None,Jf=None,BF=0.):
+    print ('IN FUNCTION: BGT() \n')
     ft = 10**(logft)
     
     # BGT for forward reaction
@@ -245,6 +248,7 @@ def BGT(logft,Ji=None,Jf=None,BF=0.):
 # Jf is the final state spin.
 # BF (float or int) is the Fermi transition strength.
 def BGT_FFN(logft,Ji=None,Jf=None,BF=0.):
+    print ('IN FUNCTION: BGT_FFN() \n')
     ft = 10**(logft)
     # BGT for forward reaction
     BGTf = 10**(3.596)*(10**(-logft)-BF*10**(-3.791))
@@ -294,6 +298,7 @@ def choose(thing,options,mustchoose=True,nochoice='to make no selection'):
 ## A2 is A of nucleus 2.
 ## Z2 is Z of nucleus 2.
 def deltaM(A1,Z1,A2,Z2):
+    print ('IN FUNCTION: deltaM() ofr A1={} A2={} Z1={} Z2={} \n'.format(A1,A2,Z1,Z2))
     ## Compute difference in electron numbers e1 - e2.
     deltae = Z1 - Z2
     
@@ -319,7 +324,9 @@ def deltaM(A1,Z1,A2,Z2):
 # Ye = electron fraction
 # T = temperature (MeV)
 def electron_chemical_potential(rhoYe,T):
+    print ('IN FUNCTION: electron_chemical_potential() for rhoYe={} T={} \n'.format(rhoYe,T))
     def equation(mu,n):
+        print ('IN FUNCTION: eequation() in electron_chemical_potential() for mu={} n={} \n'.format(mu,n))
         leg = numpy.polynomial.legendre.leggauss(100)
         Plow = leg[0]    # E < mu
         weightlow = leg[1]
@@ -361,6 +368,7 @@ def electron_chemical_potential(rhoYe,T):
 # rho = density (g/cm^3)
 # Ye = electron fraction
 def electron_fermi_energy(rho,Ye):
+    print ('IN FUNCTION: electron_fermi_energy() for rho={}, Ye={} \n'.format(rho,Ye))
     n = rho * avogadro * Ye * 10**(-39)    # electron number density (fm^-3)
     pF = hbar*C * (3*math.pi**2*n)**(1./3.)    # Fermi momentum (MeV)
     EF = (pF**2 + me**2)**(0.5) - me    # Fermi energy (MeV)
@@ -374,6 +382,7 @@ def electron_fermi_energy(rho,Ye):
 # input is number to be formatted.
 # precision is number of significant digits.
 def fortran_exp(input,precision):
+    print ('IN FUNCTION: fortran_exp() \n')
     format_str = '{'+':.{}E'.format(precision-1)+'}'
     output = format_str.format(input)
     
@@ -402,6 +411,7 @@ def fortran_exp(input,precision):
 # B = the transition strength
 # channel is the reaction channel
 def ft(B,channel='gt'):
+    print ('IN FUNCTION: ft() B={} \n '.format(B))
     if channel == 'gt':
         ft = B_to_ft/(avec_to_vec*B)
     
@@ -420,6 +430,7 @@ def ft(B,channel='gt'):
 # B = the transition strength
 # channel is the reaction channel
 def ft_FFN(B,channel='gt'):
+    print ('IN FUNCTION: ft_FFN() for B={}\n'.format(B))
     if channel == 'gt':
         ft = 10**3.596/B
     
@@ -442,6 +453,7 @@ def ft_FFN(B,channel='gt'):
 # Tz1 in the z-component of isospin of nucleus 1
 # Tz2 in the z-component of isospin of nucleus 2
 def get_deltaM(lpt_name,Tz1,Tz2):
+    print ('IN FUNCTION: get_deltaM() \n ')
     ground1 = None
     ground2 = None
     
@@ -493,6 +505,7 @@ def get_deltaM(lpt_name,Tz1,Tz2):
 # lpt_name is the path to the lpt file if extracting from such file
 # states[i] = [Ei,Ji,Ti,ni] 
 def get_energy(Tz,J,T,n,lpt_name=None,states=None):
+    print ('IN FUNCTION: get_energy() \n')
     if states:
         try:
             index = [s[1:] for s in states].index([J,T,n])
@@ -548,6 +561,7 @@ def get_energy(Tz,J,T,n,lpt_name=None,states=None):
 # will list all .lpt files found in given directory and ask user to choose one
 # returns None if directory not found or no .lpt files found
 def get_lpt(path='.',prompt='file'):
+    print ('IN FUNCTION: get_lpt() \n ')
     lpt = []
     try:
         for f in os.listdir(path):
@@ -575,6 +589,7 @@ def get_lpt(path='.',prompt='file'):
 # lpt_path is filename for lpt file.  May or may not have '.lpt' suffix.
 # Tz is z component of isospin.
 def get_lptstates(lpt_path,Tz=None):
+    print ('IN FUNCTION: get_lptstates() \n ')
     try:
         lpt = open(lpt_path,'r')
     except:
@@ -636,6 +651,7 @@ def get_lptstates(lpt_path,Tz=None):
 # lpt_path is filename for lpt file.  May or may not have '.lpt' suffix.
 # Tz is z component of isospin.
 def get_lptexpstates(lpt_path,Tz=None):
+    print('IN FUNCTION: get_lptexpstates() \n')
     try:
         lpt = open(lpt_path,'r')
     except:
@@ -701,6 +717,7 @@ def get_lptexpstates(lpt_path,Tz=None):
 # T is the isospin
 # lpt_name is the path to the lpt file if extracting from such file
 def get_n(E_max,Tz,J,P,T,lpt_name):
+    print ('IN FUNCTION: get_n() \n ')
     if P == '0':
         P = '+'
     elif P == '1':
@@ -768,6 +785,7 @@ def get_n(E_max,Tz,J,P,T,lpt_name):
 # lptf_name is the final nucleus lpt file.  Necessary if Fermi strength is desired.
 # hist indicates whether to return a weighted histogram.
 def get_strength(AZ,channel,quench=quench,path='overlaps/',hist=None):
+    print ('IN FUNCTION: get_strength() \n ')
     if not path.endswith('/'):
         path = path+'/'
         
@@ -829,6 +847,7 @@ def get_strength(AZ,channel,quench=quench,path='overlaps/',hist=None):
 # channel is the reaction channel
 # path is path to overlaps
 def get_strengthF(AZi,channel,lptf_name,path='overlaps/'):
+    print ('IN FUNCTION: get_strengthF() \n ')
     # return nothing if not a charged current channel
     if not (channel == 'gt-' or channel == 'gt+'):
         return []
@@ -888,6 +907,7 @@ def get_strengthF(AZi,channel,lptf_name,path='overlaps/'):
 # data is array of x-values and weights: data[i] = [xi,wi]
 # bins is array of bin edges
 def histogram(data,bins):
+    print ('IN FUNCTION: histogram() \n ')
     hist = numpy.zeros(len(bins)-1)
     
     for d in data:
@@ -905,6 +925,7 @@ def histogram(data,bins):
 # Computes imbalance between inputs.
 # A, B are the quantities between which to compute imbalance.  May be numbers or arrays.
 def imbalance(A,B):
+    print ('IN FUNCTION: imbalance() \n')
     imbalance = (A - B)/(A + B)
     
     return imbalance
@@ -922,6 +943,7 @@ def imbalance(A,B):
 ## lepton (str) is charged lepton in interaction ('electron' or 'positron').
 ## capdec (str) indicates the interaction ('capture' or 'decay').
 def kernel_cc(A,Z,w,q,T,mu,lepton,capdec):
+    #print ('IN FUNCTION: kernel_cc() for A={} Z={} T={} mu={} lepton={} capdec={} \n'.format(A,Z,T,mu,lepton,capdec))
     ## Make sure T and mu are appropriately shaped arrays.
     T = numpy.array([T])
     T.shape = (T.size,1)
@@ -998,11 +1020,13 @@ def kernel_cc(A,Z,w,q,T,mu,lepton,capdec):
 # lepton is the outgoing charged lepton.
 # F is the Coulomb correction.  If not specified, treat nucleus as fully ionized.
 def logft(A,Z,Q,halflife,lepton,F=None):
+    print ('IN FUNCTION: logft() \n ')
     ##### begin kernel: lepton decay phase space kernel #####
     # w (float) is lepton energy (units of electron mass)
     # q (float) is transition energy (units of electron mass)
     # lepton is charged lepton in interaction ('electron' or 'positron')
     def kernel(w,q,lepton,F):
+        print ('IN FUNCTION: kernel() \n ')
         print ('\nw:')
         print (w)
         # charged lepton momentum (mc)
@@ -1066,6 +1090,7 @@ def logft(A,Z,Q,halflife,lepton,F=None):
 # Computes nuclear radius from mass number.
 # A is nuclear mass number.
 def nuc_rad(A):
+    #print ('IN FUNCTION: nuc_rad() A=%i \n '%int(A))
     R = 2.908*10**(-3)*A**(1./3.)-2.437*10**(-3)*A**(-1./3.)
     
     return R
@@ -1079,6 +1104,7 @@ def nuc_rad(A):
 # quench is the quenching factor.  Pre-quenched BGT should be passed with default quench.
 # returns rates in MeV/s
 def pair_erate(deltaE,BGT,quench=1):
+    print ('IN FUNCTION: pair_erate() for deltaE={}, BGT={} \n'.format(deltaE,BGT))
     rate = 1.71*10**(-4)*quench*BGT*(deltaE)**6
 
     return rate
@@ -1093,6 +1119,7 @@ def pair_erate(deltaE,BGT,quench=1):
 # Tz is isospin.  May be neglected if lpt file contains no states with bad isospins
 # returns partition function G(T)
 def partfcn(T,states=None,lpt_name=None,Tz=None):
+    print ('IN FUNCTION: partfcn() for T={} \n'.format(T))
     G = 0
     if not states:
         states = get_lptstates(lpt_name,Tz)
@@ -1116,6 +1143,7 @@ def partfcn(T,states=None,lpt_name=None,Tz=None):
 # Tz is isospin.  May be neglected if lpt file contains no states with bad isospins
 # returns partial partition function Gp(T)
 def partfcn_partial(T,states=None,lpt_name=None,E_min=0,E_max=float('inf'),Tz=None):
+    print ('IN FUNCTION: partfcn_partial() for T={} \n '.format(T))
     Gp = 0
     if not states:
         states = get_lptstates(lpt_name,Tz)
@@ -1143,6 +1171,7 @@ def partfcn_partial(T,states=None,lpt_name=None,E_min=0,E_max=float('inf'),Tz=No
 ## shoulderpoints is number of points in Legendre-Gauss quadrature.
 ## tailpoints is number of points in Gauss-Laguerre quadrature.
 def rates_cc(A,Z,strength,T,Q,mue,lepton,capdec,shoulderpoints=64,tailpoints=64):
+    print ('IN FUNCTION: rates_cc() for A={} Z={} strength={} T={} Q={}\n '.format(A,Z,strength,T,Q))
     ## Make sure T and mue are arrays.
     T = numpy.array([T])
     T.shape = T.size
@@ -1252,6 +1281,7 @@ def rates_cc(A,Z,strength,T,Q,mue,lepton,capdec,shoulderpoints=64,tailpoints=64)
 # input is number to be converted.  Can be anything that casts to float.
 # precision indicates how many decimal places to include in the coefficient.
 def sci_not(input,precision=2):
+    print ('IN FUNCTION: sci_not() \n ')
     try:
         input = float(input)
     except:
@@ -1288,6 +1318,7 @@ def sci_not(input,precision=2):
 # capdec is whether charged lepton is captured or emitted.
 # Enu (array) is neutrino energies at which to compute spectral density.
 def spectrum_cc(A,Z,strength,T,mue,lepton,capdec,Enu):
+    print ('IN FUNCTION: spectrum_cc() \n ')
     # Make sure T and mu are appropriately shaped arrays.
     T = numpy.array([T])
     T.shape = (T.size,1)
@@ -1330,6 +1361,7 @@ def spectrum_cc(A,Z,strength,T,mue,lepton,capdec,Enu):
 # strength[i] = [Qi,BGT3]     Q is in MeV, BGT3 is the strength.
 # Enu (array) is neutrino energies at which to compute spectral density.
 def spectrum_nc(strength,Enu):
+    print ('IN FUNCTION: spectrum_nc() \n ')
     spect = numpy.zeros(len(Enu))
 
     for s in strength:
@@ -1395,6 +1427,7 @@ def spectrum_nc(strength,Enu):
 ## dEmax is maximum included Q-value.
 ## dEwidth is width of Q-value bins in thermal strength distribution (MeV).
 def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quench,cutoff1=15.,cutoff2=20.,bwidth=1.,dEmax=50.,dEwidth=0.1,spam=True):
+    print ('IN FUNCTION: thermal_strength() \n ')
     ## Get A and Z, compute Tz.
     A,Z = numpy.fromstring(AZ,sep=',',dtype=int)
     Tz = (2.*Z-A)/2.
@@ -1707,6 +1740,7 @@ def thermal_strength(AZ,channel,temp,overlappath,format,lptpath='./',quench=quen
 # Changed 'input' to 'temp_input' because the code was returning an error
 # due to the change from raw_input() to input() in Python 3
 def user_float(prompt,notes=None,default=None):
+    print ('IN FUNCTION: user_float() \n ')
     prompt = '\n'+prompt
     if notes:
         if default:

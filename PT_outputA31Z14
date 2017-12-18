@@ -5,20 +5,10 @@ Choose overlap file format by number:
 1: FFN
 2: input temperatures and densities
 Choose temperature-density grid by number: Nucleus A,Z: 
-Path to overlap files (default /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_expt_rev/): 
+Path to overlap files (default /Users/stephaniemlauber/Desktop/allmytransitions/Beta_Results_Final/gtr_expt_rev/): 
 Lower,upper cutoffs for modified Brink hypothesis (MeV, default 15,20): 
 Averaged high energy state bin width (MeV, default 1.0): 
-Thermal strength transition energy bin width (MeV, default 0.01): 
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/Si31Bplus_expt.gtr not found.
-Checking reverse reaction.
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/Al31Bminus_expt.gtr also not found.
-
-
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/Si31Bminus_expt.gtr not found.
-Checking reverse reaction.
-Overlap file /home/slauber/Desktop/allmytransitions/Beta_Results_Final/gtr_theory/P31Bplus_expt.gtr also not found.
-
-Computing rates at density 1 of 11.
+Thermal strength transition energy bin width (MeV, default 0.01): Computing rates at density 1 of 11.
 Computing rates at density 2 of 11.
 Computing rates at density 3 of 11.
 Computing rates at density 4 of 11.
